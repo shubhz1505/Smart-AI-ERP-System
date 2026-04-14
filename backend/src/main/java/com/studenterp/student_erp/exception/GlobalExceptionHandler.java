@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
-// This replaces your middleware/errorHandler.js
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Validation errors (@Valid failed)
+    
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationErrors(
             MethodArgumentNotValidException ex) {
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error("Validation failed: " + errors));
     }
 
-    // Resource not found (404)
+    
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiResponse<Void>> handleNotFound(ResourceNotFoundException ex) {
         return ResponseEntity
@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error(ex.getMessage()));
     }
 
-    // Wrong password / bad credentials
+    
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ApiResponse<Void>> handleBadCredentials(BadCredentialsException ex) {
         return ResponseEntity
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error("Invalid email or password"));
     }
 
-    // Access denied (403)
+    
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ApiResponse<Void>> handleAccessDenied(AccessDeniedException ex) {
         return ResponseEntity
@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error("Access denied. Insufficient permissions."));
     }
 
-    // General errors (500)
+    
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleGeneral(Exception ex) {
         return ResponseEntity

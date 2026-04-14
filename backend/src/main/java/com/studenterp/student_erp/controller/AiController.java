@@ -18,7 +18,7 @@ public class AiController {
     private final AutomationEngineService automationEngine;
     private final AiDashboardService aiDashboardService;
 
-    // ── Automation Triggers ──
+    
 
     @PostMapping("/automation/fees")
     @PreAuthorize("hasRole('admin')")
@@ -38,7 +38,7 @@ public class AiController {
         );
     }
 
-    // ── Chatbot ──
+
 
     @PostMapping("/query")
     public ResponseEntity<ApiResponse<Map<String, Object>>> handleQuery(
@@ -49,7 +49,6 @@ public class AiController {
         return ResponseEntity.ok(ApiResponse.success(result, "Query processed"));
     }
 
-    // ── Exam Prediction ──
 
     @PostMapping("/exam-prediction/{studentId}")
     public ResponseEntity<ApiResponse<Map<String, Object>>> predictExam(
@@ -65,7 +64,6 @@ public class AiController {
         return ResponseEntity.ok(ApiResponse.success(result, "Exam prediction completed"));
     }
 
-    // ── AI Dashboard ──
 
     @GetMapping("/dashboard")
     @PreAuthorize("hasRole('admin')")
@@ -77,7 +75,6 @@ public class AiController {
         );
     }
 
-    // ── Student AI Profile ──
 
     @GetMapping("/profile/student/{studentId}")
     public ResponseEntity<ApiResponse<Map<String, Object>>> getStudentAiProfile(
@@ -89,7 +86,7 @@ public class AiController {
         );
     }
 
-    // ── Automation History ──
+
 
     @GetMapping("/automation/history")
     @PreAuthorize("hasRole('admin')")
@@ -101,7 +98,7 @@ public class AiController {
         );
     }
 
-    // ── AI Services Health ──
+
 
     @GetMapping("/services/health")
     @PreAuthorize("hasRole('admin')")
@@ -113,7 +110,7 @@ public class AiController {
         );
     }
 
-    // ── Pending Escalations (queries admin needs to answer) ──
+
 
     @GetMapping("/queries/escalated")
     @PreAuthorize("hasRole('admin')")
@@ -124,7 +121,7 @@ public class AiController {
         );
     }
 
-    // ── High Risk Students ──
+
 
     @GetMapping("/students/high-risk")
     @PreAuthorize("hasRole('admin')")
