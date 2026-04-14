@@ -1,0 +1,19 @@
+# ===== JAVA (Spring Boot) =====
+backend/target/
+backend/.idea/
+backend/*.iml
+
+# ===== PYTHON =====
+ai-services/.venv/
+ai-services/__pycache__/
+ai-services/*.pyc
+ai-services/venv/
+
+# ===== OS =====
+.DS_Store
+
+# ===== LOGS =====
+*.log
+
+# ===== OPTIONAL (if large files) =====
+ai-services/models/*.pkl

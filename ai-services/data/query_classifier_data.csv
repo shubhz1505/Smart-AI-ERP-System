@@ -1,0 +1,428 @@
+query,intent
+What is my pending fee amount?,FEE_QUERY
+what is my pending fee amount?,FEE_QUERY
+WHAT IS MY PENDING FEE AMOUNT?,FEE_QUERY
+please what is my pending fee amount?,FEE_QUERY
+What is my pending fee amount,FEE_QUERY
+hi what is my pending fee amount?,FEE_QUERY
+How much fees do I need to pay?,FEE_QUERY
+how much fees do i need to pay?,FEE_QUERY
+HOW MUCH FEES DO I NEED TO PAY?,FEE_QUERY
+please how much fees do i need to pay?,FEE_QUERY
+How much fees do I need to pay,FEE_QUERY
+hi how much fees do i need to pay?,FEE_QUERY
+When is my fee due date?,FEE_QUERY
+when is my fee due date?,FEE_QUERY
+WHEN IS MY FEE DUE DATE?,FEE_QUERY
+please when is my fee due date?,FEE_QUERY
+When is my fee due date,FEE_QUERY
+hi when is my fee due date?,FEE_QUERY
+What is my fee status?,FEE_QUERY
+what is my fee status?,FEE_QUERY
+WHAT IS MY FEE STATUS?,FEE_QUERY
+please what is my fee status?,FEE_QUERY
+What is my fee status,FEE_QUERY
+hi what is my fee status?,FEE_QUERY
+Did my payment go through?,FEE_QUERY
+did my payment go through?,FEE_QUERY
+DID MY PAYMENT GO THROUGH?,FEE_QUERY
+please did my payment go through?,FEE_QUERY
+Did my payment go through,FEE_QUERY
+hi did my payment go through?,FEE_QUERY
+How much have I paid so far?,FEE_QUERY
+how much have i paid so far?,FEE_QUERY
+HOW MUCH HAVE I PAID SO FAR?,FEE_QUERY
+please how much have i paid so far?,FEE_QUERY
+How much have I paid so far,FEE_QUERY
+hi how much have i paid so far?,FEE_QUERY
+Is my fee paid for this semester?,FEE_QUERY
+is my fee paid for this semester?,FEE_QUERY
+IS MY FEE PAID FOR THIS SEMESTER?,FEE_QUERY
+please is my fee paid for this semester?,FEE_QUERY
+Is my fee paid for this semester,FEE_QUERY
+hi is my fee paid for this semester?,FEE_QUERY
+What are the fee details for semester 5?,FEE_QUERY
+what are the fee details for semester 5?,FEE_QUERY
+WHAT ARE THE FEE DETAILS FOR SEMESTER 5?,FEE_QUERY
+please what are the fee details for semester 5?,FEE_QUERY
+What are the fee details for semester 5,FEE_QUERY
+hi what are the fee details for semester 5?,FEE_QUERY
+Can I pay fees in installments?,FEE_QUERY
+can i pay fees in installments?,FEE_QUERY
+CAN I PAY FEES IN INSTALLMENTS?,FEE_QUERY
+please can i pay fees in installments?,FEE_QUERY
+Can I pay fees in installments,FEE_QUERY
+hi can i pay fees in installments?,FEE_QUERY
+My fee receipt is not generated,FEE_QUERY
+my fee receipt is not generated,FEE_QUERY
+MY FEE RECEIPT IS NOT GENERATED,FEE_QUERY
+please my fee receipt is not generated,FEE_QUERY
+hi my fee receipt is not generated,FEE_QUERY
+Show me my payment history,FEE_QUERY
+show me my payment history,FEE_QUERY
+SHOW ME MY PAYMENT HISTORY,FEE_QUERY
+please show me my payment history,FEE_QUERY
+hi show me my payment history,FEE_QUERY
+What is my outstanding balance?,FEE_QUERY
+what is my outstanding balance?,FEE_QUERY
+WHAT IS MY OUTSTANDING BALANCE?,FEE_QUERY
+please what is my outstanding balance?,FEE_QUERY
+What is my outstanding balance,FEE_QUERY
+hi what is my outstanding balance?,FEE_QUERY
+Fee deadline reminder please,FEE_QUERY
+fee deadline reminder please,FEE_QUERY
+FEE DEADLINE REMINDER PLEASE,FEE_QUERY
+please fee deadline reminder please,FEE_QUERY
+hi fee deadline reminder please,FEE_QUERY
+Is there any late fee penalty?,FEE_QUERY
+is there any late fee penalty?,FEE_QUERY
+IS THERE ANY LATE FEE PENALTY?,FEE_QUERY
+please is there any late fee penalty?,FEE_QUERY
+Is there any late fee penalty,FEE_QUERY
+hi is there any late fee penalty?,FEE_QUERY
+How do I pay my tuition fees?,FEE_QUERY
+how do i pay my tuition fees?,FEE_QUERY
+HOW DO I PAY MY TUITION FEES?,FEE_QUERY
+please how do i pay my tuition fees?,FEE_QUERY
+How do I pay my tuition fees,FEE_QUERY
+hi how do i pay my tuition fees?,FEE_QUERY
+What is my attendance percentage?,ATTENDANCE_QUERY
+what is my attendance percentage?,ATTENDANCE_QUERY
+WHAT IS MY ATTENDANCE PERCENTAGE?,ATTENDANCE_QUERY
+please what is my attendance percentage?,ATTENDANCE_QUERY
+What is my attendance percentage,ATTENDANCE_QUERY
+hi what is my attendance percentage?,ATTENDANCE_QUERY
+How many classes have I attended?,ATTENDANCE_QUERY
+how many classes have i attended?,ATTENDANCE_QUERY
+HOW MANY CLASSES HAVE I ATTENDED?,ATTENDANCE_QUERY
+please how many classes have i attended?,ATTENDANCE_QUERY
+How many classes have I attended,ATTENDANCE_QUERY
+hi how many classes have i attended?,ATTENDANCE_QUERY
+Am I short on attendance?,ATTENDANCE_QUERY
+am i short on attendance?,ATTENDANCE_QUERY
+AM I SHORT ON ATTENDANCE?,ATTENDANCE_QUERY
+please am i short on attendance?,ATTENDANCE_QUERY
+Am I short on attendance,ATTENDANCE_QUERY
+hi am i short on attendance?,ATTENDANCE_QUERY
+What is my attendance in Data Structures?,ATTENDANCE_QUERY
+what is my attendance in data structures?,ATTENDANCE_QUERY
+WHAT IS MY ATTENDANCE IN DATA STRUCTURES?,ATTENDANCE_QUERY
+please what is my attendance in data structures?,ATTENDANCE_QUERY
+What is my attendance in Data Structures,ATTENDANCE_QUERY
+hi what is my attendance in data structures?,ATTENDANCE_QUERY
+How many leaves can I take?,ATTENDANCE_QUERY
+how many leaves can i take?,ATTENDANCE_QUERY
+HOW MANY LEAVES CAN I TAKE?,ATTENDANCE_QUERY
+please how many leaves can i take?,ATTENDANCE_QUERY
+How many leaves can I take,ATTENDANCE_QUERY
+hi how many leaves can i take?,ATTENDANCE_QUERY
+I was marked absent but was present,ATTENDANCE_QUERY
+i was marked absent but was present,ATTENDANCE_QUERY
+I WAS MARKED ABSENT BUT WAS PRESENT,ATTENDANCE_QUERY
+please i was marked absent but was present,ATTENDANCE_QUERY
+hi i was marked absent but was present,ATTENDANCE_QUERY
+Show me my attendance report,ATTENDANCE_QUERY
+show me my attendance report,ATTENDANCE_QUERY
+SHOW ME MY ATTENDANCE REPORT,ATTENDANCE_QUERY
+please show me my attendance report,ATTENDANCE_QUERY
+hi show me my attendance report,ATTENDANCE_QUERY
+What is the minimum attendance required?,ATTENDANCE_QUERY
+what is the minimum attendance required?,ATTENDANCE_QUERY
+WHAT IS THE MINIMUM ATTENDANCE REQUIRED?,ATTENDANCE_QUERY
+please what is the minimum attendance required?,ATTENDANCE_QUERY
+What is the minimum attendance required,ATTENDANCE_QUERY
+hi what is the minimum attendance required?,ATTENDANCE_QUERY
+My attendance is below 75%,ATTENDANCE_QUERY
+my attendance is below 75%,ATTENDANCE_QUERY
+MY ATTENDANCE IS BELOW 75%,ATTENDANCE_QUERY
+please my attendance is below 75%,ATTENDANCE_QUERY
+hi my attendance is below 75%,ATTENDANCE_QUERY
+How many classes did I miss this month?,ATTENDANCE_QUERY
+how many classes did i miss this month?,ATTENDANCE_QUERY
+HOW MANY CLASSES DID I MISS THIS MONTH?,ATTENDANCE_QUERY
+please how many classes did i miss this month?,ATTENDANCE_QUERY
+How many classes did I miss this month,ATTENDANCE_QUERY
+hi how many classes did i miss this month?,ATTENDANCE_QUERY
+Can I get attendance condonation?,ATTENDANCE_QUERY
+can i get attendance condonation?,ATTENDANCE_QUERY
+CAN I GET ATTENDANCE CONDONATION?,ATTENDANCE_QUERY
+please can i get attendance condonation?,ATTENDANCE_QUERY
+Can I get attendance condonation,ATTENDANCE_QUERY
+hi can i get attendance condonation?,ATTENDANCE_QUERY
+What is my attendance in all subjects?,ATTENDANCE_QUERY
+what is my attendance in all subjects?,ATTENDANCE_QUERY
+WHAT IS MY ATTENDANCE IN ALL SUBJECTS?,ATTENDANCE_QUERY
+please what is my attendance in all subjects?,ATTENDANCE_QUERY
+What is my attendance in all subjects,ATTENDANCE_QUERY
+hi what is my attendance in all subjects?,ATTENDANCE_QUERY
+I need medical leave for attendance,ATTENDANCE_QUERY
+i need medical leave for attendance,ATTENDANCE_QUERY
+I NEED MEDICAL LEAVE FOR ATTENDANCE,ATTENDANCE_QUERY
+please i need medical leave for attendance,ATTENDANCE_QUERY
+hi i need medical leave for attendance,ATTENDANCE_QUERY
+Who marked my attendance today?,ATTENDANCE_QUERY
+who marked my attendance today?,ATTENDANCE_QUERY
+WHO MARKED MY ATTENDANCE TODAY?,ATTENDANCE_QUERY
+please who marked my attendance today?,ATTENDANCE_QUERY
+Who marked my attendance today,ATTENDANCE_QUERY
+hi who marked my attendance today?,ATTENDANCE_QUERY
+Show attendance for last week,ATTENDANCE_QUERY
+show attendance for last week,ATTENDANCE_QUERY
+SHOW ATTENDANCE FOR LAST WEEK,ATTENDANCE_QUERY
+please show attendance for last week,ATTENDANCE_QUERY
+hi show attendance for last week,ATTENDANCE_QUERY
+When are the exams?,EXAM_QUERY
+when are the exams?,EXAM_QUERY
+WHEN ARE THE EXAMS?,EXAM_QUERY
+please when are the exams?,EXAM_QUERY
+When are the exams,EXAM_QUERY
+hi when are the exams?,EXAM_QUERY
+What is the exam schedule?,EXAM_QUERY
+what is the exam schedule?,EXAM_QUERY
+WHAT IS THE EXAM SCHEDULE?,EXAM_QUERY
+please what is the exam schedule?,EXAM_QUERY
+What is the exam schedule,EXAM_QUERY
+hi what is the exam schedule?,EXAM_QUERY
+When is the next internal exam?,EXAM_QUERY
+when is the next internal exam?,EXAM_QUERY
+WHEN IS THE NEXT INTERNAL EXAM?,EXAM_QUERY
+please when is the next internal exam?,EXAM_QUERY
+When is the next internal exam,EXAM_QUERY
+hi when is the next internal exam?,EXAM_QUERY
+What is my predicted exam score?,EXAM_QUERY
+what is my predicted exam score?,EXAM_QUERY
+WHAT IS MY PREDICTED EXAM SCORE?,EXAM_QUERY
+please what is my predicted exam score?,EXAM_QUERY
+What is my predicted exam score,EXAM_QUERY
+hi what is my predicted exam score?,EXAM_QUERY
+How should I prepare for exams?,EXAM_QUERY
+how should i prepare for exams?,EXAM_QUERY
+HOW SHOULD I PREPARE FOR EXAMS?,EXAM_QUERY
+please how should i prepare for exams?,EXAM_QUERY
+How should I prepare for exams,EXAM_QUERY
+hi how should i prepare for exams?,EXAM_QUERY
+What topics are important for exam?,EXAM_QUERY
+what topics are important for exam?,EXAM_QUERY
+WHAT TOPICS ARE IMPORTANT FOR EXAM?,EXAM_QUERY
+please what topics are important for exam?,EXAM_QUERY
+What topics are important for exam,EXAM_QUERY
+hi what topics are important for exam?,EXAM_QUERY
+When will results be declared?,EXAM_QUERY
+when will results be declared?,EXAM_QUERY
+WHEN WILL RESULTS BE DECLARED?,EXAM_QUERY
+please when will results be declared?,EXAM_QUERY
+When will results be declared,EXAM_QUERY
+hi when will results be declared?,EXAM_QUERY
+I missed my exam what to do?,EXAM_QUERY
+i missed my exam what to do?,EXAM_QUERY
+I MISSED MY EXAM WHAT TO DO?,EXAM_QUERY
+please i missed my exam what to do?,EXAM_QUERY
+I missed my exam what to do,EXAM_QUERY
+hi i missed my exam what to do?,EXAM_QUERY
+Can I apply for revaluation?,EXAM_QUERY
+can i apply for revaluation?,EXAM_QUERY
+CAN I APPLY FOR REVALUATION?,EXAM_QUERY
+please can i apply for revaluation?,EXAM_QUERY
+Can I apply for revaluation,EXAM_QUERY
+hi can i apply for revaluation?,EXAM_QUERY
+What is the passing marks?,EXAM_QUERY
+what is the passing marks?,EXAM_QUERY
+WHAT IS THE PASSING MARKS?,EXAM_QUERY
+please what is the passing marks?,EXAM_QUERY
+What is the passing marks,EXAM_QUERY
+hi what is the passing marks?,EXAM_QUERY
+Show me my previous exam results,EXAM_QUERY
+show me my previous exam results,EXAM_QUERY
+SHOW ME MY PREVIOUS EXAM RESULTS,EXAM_QUERY
+please show me my previous exam results,EXAM_QUERY
+hi show me my previous exam results,EXAM_QUERY
+Is there any supplementary exam?,EXAM_QUERY
+is there any supplementary exam?,EXAM_QUERY
+IS THERE ANY SUPPLEMENTARY EXAM?,EXAM_QUERY
+please is there any supplementary exam?,EXAM_QUERY
+Is there any supplementary exam,EXAM_QUERY
+hi is there any supplementary exam?,EXAM_QUERY
+What is the exam hall ticket procedure?,EXAM_QUERY
+what is the exam hall ticket procedure?,EXAM_QUERY
+WHAT IS THE EXAM HALL TICKET PROCEDURE?,EXAM_QUERY
+please what is the exam hall ticket procedure?,EXAM_QUERY
+What is the exam hall ticket procedure,EXAM_QUERY
+hi what is the exam hall ticket procedure?,EXAM_QUERY
+When does exam registration start?,EXAM_QUERY
+when does exam registration start?,EXAM_QUERY
+WHEN DOES EXAM REGISTRATION START?,EXAM_QUERY
+please when does exam registration start?,EXAM_QUERY
+When does exam registration start,EXAM_QUERY
+hi when does exam registration start?,EXAM_QUERY
+What is the exam pattern?,EXAM_QUERY
+what is the exam pattern?,EXAM_QUERY
+WHAT IS THE EXAM PATTERN?,EXAM_QUERY
+please what is the exam pattern?,EXAM_QUERY
+What is the exam pattern,EXAM_QUERY
+hi what is the exam pattern?,EXAM_QUERY
+I need a bonafide certificate,CERTIFICATE_REQUEST
+i need a bonafide certificate,CERTIFICATE_REQUEST
+I NEED A BONAFIDE CERTIFICATE,CERTIFICATE_REQUEST
+please i need a bonafide certificate,CERTIFICATE_REQUEST
+hi i need a bonafide certificate,CERTIFICATE_REQUEST
+How to get transfer certificate?,CERTIFICATE_REQUEST
+how to get transfer certificate?,CERTIFICATE_REQUEST
+HOW TO GET TRANSFER CERTIFICATE?,CERTIFICATE_REQUEST
+please how to get transfer certificate?,CERTIFICATE_REQUEST
+How to get transfer certificate,CERTIFICATE_REQUEST
+hi how to get transfer certificate?,CERTIFICATE_REQUEST
+I need character certificate,CERTIFICATE_REQUEST
+i need character certificate,CERTIFICATE_REQUEST
+I NEED CHARACTER CERTIFICATE,CERTIFICATE_REQUEST
+please i need character certificate,CERTIFICATE_REQUEST
+hi i need character certificate,CERTIFICATE_REQUEST
+Apply for leaving certificate,CERTIFICATE_REQUEST
+apply for leaving certificate,CERTIFICATE_REQUEST
+APPLY FOR LEAVING CERTIFICATE,CERTIFICATE_REQUEST
+please apply for leaving certificate,CERTIFICATE_REQUEST
+hi apply for leaving certificate,CERTIFICATE_REQUEST
+I need a course completion certificate,CERTIFICATE_REQUEST
+i need a course completion certificate,CERTIFICATE_REQUEST
+I NEED A COURSE COMPLETION CERTIFICATE,CERTIFICATE_REQUEST
+please i need a course completion certificate,CERTIFICATE_REQUEST
+hi i need a course completion certificate,CERTIFICATE_REQUEST
+How long does certificate take?,CERTIFICATE_REQUEST
+how long does certificate take?,CERTIFICATE_REQUEST
+HOW LONG DOES CERTIFICATE TAKE?,CERTIFICATE_REQUEST
+please how long does certificate take?,CERTIFICATE_REQUEST
+How long does certificate take,CERTIFICATE_REQUEST
+hi how long does certificate take?,CERTIFICATE_REQUEST
+I need certificate for bank loan,CERTIFICATE_REQUEST
+i need certificate for bank loan,CERTIFICATE_REQUEST
+I NEED CERTIFICATE FOR BANK LOAN,CERTIFICATE_REQUEST
+please i need certificate for bank loan,CERTIFICATE_REQUEST
+hi i need certificate for bank loan,CERTIFICATE_REQUEST
+Apply for no dues certificate,CERTIFICATE_REQUEST
+apply for no dues certificate,CERTIFICATE_REQUEST
+APPLY FOR NO DUES CERTIFICATE,CERTIFICATE_REQUEST
+please apply for no dues certificate,CERTIFICATE_REQUEST
+hi apply for no dues certificate,CERTIFICATE_REQUEST
+I need caste certificate verification,CERTIFICATE_REQUEST
+i need caste certificate verification,CERTIFICATE_REQUEST
+I NEED CASTE CERTIFICATE VERIFICATION,CERTIFICATE_REQUEST
+please i need caste certificate verification,CERTIFICATE_REQUEST
+hi i need caste certificate verification,CERTIFICATE_REQUEST
+How to get provisional certificate?,CERTIFICATE_REQUEST
+how to get provisional certificate?,CERTIFICATE_REQUEST
+HOW TO GET PROVISIONAL CERTIFICATE?,CERTIFICATE_REQUEST
+please how to get provisional certificate?,CERTIFICATE_REQUEST
+How to get provisional certificate,CERTIFICATE_REQUEST
+hi how to get provisional certificate?,CERTIFICATE_REQUEST
+Apply for migration certificate,CERTIFICATE_REQUEST
+apply for migration certificate,CERTIFICATE_REQUEST
+APPLY FOR MIGRATION CERTIFICATE,CERTIFICATE_REQUEST
+please apply for migration certificate,CERTIFICATE_REQUEST
+hi apply for migration certificate,CERTIFICATE_REQUEST
+I need an NOC from college,CERTIFICATE_REQUEST
+i need an noc from college,CERTIFICATE_REQUEST
+I NEED AN NOC FROM COLLEGE,CERTIFICATE_REQUEST
+please i need an noc from college,CERTIFICATE_REQUEST
+hi i need an noc from college,CERTIFICATE_REQUEST
+Request bonafide for passport,CERTIFICATE_REQUEST
+request bonafide for passport,CERTIFICATE_REQUEST
+REQUEST BONAFIDE FOR PASSPORT,CERTIFICATE_REQUEST
+please request bonafide for passport,CERTIFICATE_REQUEST
+hi request bonafide for passport,CERTIFICATE_REQUEST
+Certificate for scholarship application,CERTIFICATE_REQUEST
+certificate for scholarship application,CERTIFICATE_REQUEST
+CERTIFICATE FOR SCHOLARSHIP APPLICATION,CERTIFICATE_REQUEST
+please certificate for scholarship application,CERTIFICATE_REQUEST
+hi certificate for scholarship application,CERTIFICATE_REQUEST
+I need fee payment certificate,CERTIFICATE_REQUEST
+i need fee payment certificate,CERTIFICATE_REQUEST
+I NEED FEE PAYMENT CERTIFICATE,CERTIFICATE_REQUEST
+please i need fee payment certificate,CERTIFICATE_REQUEST
+hi i need fee payment certificate,CERTIFICATE_REQUEST
+What are college timings?,GENERAL_QUERY
+what are college timings?,GENERAL_QUERY
+WHAT ARE COLLEGE TIMINGS?,GENERAL_QUERY
+please what are college timings?,GENERAL_QUERY
+What are college timings,GENERAL_QUERY
+hi what are college timings?,GENERAL_QUERY
+When does the semester start?,GENERAL_QUERY
+when does the semester start?,GENERAL_QUERY
+WHEN DOES THE SEMESTER START?,GENERAL_QUERY
+please when does the semester start?,GENERAL_QUERY
+When does the semester start,GENERAL_QUERY
+hi when does the semester start?,GENERAL_QUERY
+What is the library timing?,GENERAL_QUERY
+what is the library timing?,GENERAL_QUERY
+WHAT IS THE LIBRARY TIMING?,GENERAL_QUERY
+please what is the library timing?,GENERAL_QUERY
+What is the library timing,GENERAL_QUERY
+hi what is the library timing?,GENERAL_QUERY
+How to contact the principal?,GENERAL_QUERY
+how to contact the principal?,GENERAL_QUERY
+HOW TO CONTACT THE PRINCIPAL?,GENERAL_QUERY
+please how to contact the principal?,GENERAL_QUERY
+How to contact the principal,GENERAL_QUERY
+hi how to contact the principal?,GENERAL_QUERY
+What are the hostel rules?,GENERAL_QUERY
+what are the hostel rules?,GENERAL_QUERY
+WHAT ARE THE HOSTEL RULES?,GENERAL_QUERY
+please what are the hostel rules?,GENERAL_QUERY
+What are the hostel rules,GENERAL_QUERY
+hi what are the hostel rules?,GENERAL_QUERY
+When is the next holiday?,GENERAL_QUERY
+when is the next holiday?,GENERAL_QUERY
+WHEN IS THE NEXT HOLIDAY?,GENERAL_QUERY
+please when is the next holiday?,GENERAL_QUERY
+When is the next holiday,GENERAL_QUERY
+hi when is the next holiday?,GENERAL_QUERY
+How to apply for scholarship?,GENERAL_QUERY
+how to apply for scholarship?,GENERAL_QUERY
+HOW TO APPLY FOR SCHOLARSHIP?,GENERAL_QUERY
+please how to apply for scholarship?,GENERAL_QUERY
+How to apply for scholarship,GENERAL_QUERY
+hi how to apply for scholarship?,GENERAL_QUERY
+What clubs are available?,GENERAL_QUERY
+what clubs are available?,GENERAL_QUERY
+WHAT CLUBS ARE AVAILABLE?,GENERAL_QUERY
+please what clubs are available?,GENERAL_QUERY
+What clubs are available,GENERAL_QUERY
+hi what clubs are available?,GENERAL_QUERY
+College bus schedule please,GENERAL_QUERY
+college bus schedule please,GENERAL_QUERY
+COLLEGE BUS SCHEDULE PLEASE,GENERAL_QUERY
+please college bus schedule please,GENERAL_QUERY
+hi college bus schedule please,GENERAL_QUERY
+What is the canteen timing?,GENERAL_QUERY
+what is the canteen timing?,GENERAL_QUERY
+WHAT IS THE CANTEEN TIMING?,GENERAL_QUERY
+please what is the canteen timing?,GENERAL_QUERY
+What is the canteen timing,GENERAL_QUERY
+hi what is the canteen timing?,GENERAL_QUERY
+How to change my address?,GENERAL_QUERY
+how to change my address?,GENERAL_QUERY
+HOW TO CHANGE MY ADDRESS?,GENERAL_QUERY
+please how to change my address?,GENERAL_QUERY
+How to change my address,GENERAL_QUERY
+hi how to change my address?,GENERAL_QUERY
+I forgot my student ID,GENERAL_QUERY
+i forgot my student id,GENERAL_QUERY
+I FORGOT MY STUDENT ID,GENERAL_QUERY
+please i forgot my student id,GENERAL_QUERY
+hi i forgot my student id,GENERAL_QUERY
+How to update my phone number?,GENERAL_QUERY
+how to update my phone number?,GENERAL_QUERY
+HOW TO UPDATE MY PHONE NUMBER?,GENERAL_QUERY
+please how to update my phone number?,GENERAL_QUERY
+How to update my phone number,GENERAL_QUERY
+hi how to update my phone number?,GENERAL_QUERY
+What is the dress code?,GENERAL_QUERY
+what is the dress code?,GENERAL_QUERY
+WHAT IS THE DRESS CODE?,GENERAL_QUERY
+please what is the dress code?,GENERAL_QUERY
+What is the dress code,GENERAL_QUERY
+hi what is the dress code?,GENERAL_QUERY
+Sports day schedule?,GENERAL_QUERY
+sports day schedule?,GENERAL_QUERY
+SPORTS DAY SCHEDULE?,GENERAL_QUERY
+please sports day schedule?,GENERAL_QUERY
+Sports day schedule,GENERAL_QUERY
+hi sports day schedule?,GENERAL_QUERY
