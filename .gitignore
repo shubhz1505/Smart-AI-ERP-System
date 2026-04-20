@@ -17,3 +17,7 @@ ai-services/venv/
 
 # ===== OPTIONAL (if large files) =====
 ai-services/models/*.pkl
+
+# IntelliJ
+.idea/
+*.iml
