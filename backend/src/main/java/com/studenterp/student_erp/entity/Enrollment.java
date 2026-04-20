@@ -35,7 +35,7 @@ public class Enrollment {
     private String grade;
 
     public enum EnrollmentStatus {
-        active, completed, dropped
+        active, completed, dropped, enrolled,
     }
 
     @PrePersist
