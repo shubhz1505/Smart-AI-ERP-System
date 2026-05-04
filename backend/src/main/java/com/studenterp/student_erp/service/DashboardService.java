@@ -1,9 +1,9 @@
-package com.studenterp.service;
+package com.studenterp.student_erp.service;
 
-import com.studenterp.dto.response.StudentResponse;
-import com.studenterp.entity.Fee;
-import com.studenterp.entity.Student;
-import com.studenterp.repository.*;
+import com.studenterp.student_erp.dto.response.StudentResponse;
+import com.studenterp.student_erp.entity.Fee;
+import com.studenterp.student_erp.entity.Student;
+import com.studenterp.student_erp.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +45,18 @@ public class DashboardService {
         // Today's attendance
         LocalDate today = LocalDate.now();
         long todayAttendance = attendanceRepository.findByDate(today).size();
+        var allAttendance = attendanceRepository.findAll();
 
+        long totalClasses = allAttendance.size();
+
+        long presentClasses = allAttendance.stream()
+                .filter(a -> a.getStatus().name().equalsIgnoreCase("present"))
+                .count();
+
+        double avgAttendance = totalClasses > 0
+                ? Math.round((presentClasses * 100.0 / totalClasses) * 100.0) / 100.0
+                : 0.0;
+        System.out.println("AVG ATTENDANCE: " + avgAttendance);
         // Recent students (last 5)
         List<Map<String, Object>> recentStudents = studentRepository
                 .findAll()
@@ -98,6 +109,7 @@ public class DashboardService {
         dashboard.put("activeStudents", activeStudents);
         dashboard.put("totalCourses", totalCourses);
         dashboard.put("todayAttendanceCount", todayAttendance);
+        dashboard.put("avgAttendance", avgAttendance);
 
         // Fee summary
         Map<String, Object> feeSummary = new HashMap<>();
@@ -195,3 +207,8 @@ public class DashboardService {
         return dashboard;
     }
 }
+
+
+
+
+

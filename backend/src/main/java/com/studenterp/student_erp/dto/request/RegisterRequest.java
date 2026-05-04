@@ -1,7 +1,7 @@
 package com.studenterp.student_erp.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.studenterp.entity.User;
+import com.studenterp.student_erp.entity.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -35,3 +35,8 @@ public class RegisterRequest {
 
     private User.Role role = User.Role.student;
 }
+
+
+
+
+

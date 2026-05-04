@@ -1,3 +1,4 @@
+// frontend/src/store/authStore.js
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -8,21 +9,21 @@ export const useAuthStore = create(
       user: null,
       isAuthenticated: false,
 
-setAuth: (token, user) => set({
-  token,
-  user,
-  role: user?.role || 'student',
-}),
+      setAuth: (token, user) => set({
+        token,
+        user,
+        isAuthenticated: !!token,
+      }),
 
-      logout: () => {
-        set({ token: null, user: null, isAuthenticated: false })
-      },
+      updateUser: (patch) => set((s) => ({
+        user: s.user ? { ...s.user, ...patch } : patch,
+      })),
+
+      logout: () => set({ token: null, user: null, isAuthenticated: false }),
 
       getToken: () => get().token,
-      getUser: () => get().user,
+      getUser:  () => get().user,
     }),
-    {
-      name: 'erp-auth',
-    }
+    { name: 'erp-auth' }
   )
 )

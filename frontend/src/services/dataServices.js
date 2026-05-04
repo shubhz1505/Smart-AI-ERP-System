@@ -22,15 +22,17 @@ export const courseService = {
   delete:       (id)              => api.delete(`/api/courses/${id}`).then(r => r.data),
   enroll:       (courseId, stuId) => api.post(`/api/courses/${courseId}/enroll/${stuId}`).then(r => r.data),
   getByStudent: (id)              => api.get(`/api/courses/student/${id}`).then(r => r.data),
+  getEnrollments: (courseId) => api.get(`/api/courses/${courseId}/enrollments`).then(r => r.data),
 }
 
 export const attendanceService = {
-  mark:          (data)            => api.post('/api/attendance/mark', data).then(r => r.data),
-  getByStudent:  (id)              => api.get(`/api/attendance/student/${id}`).then(r => r.data),
-  getByCourse:   (id)              => api.get(`/api/attendance/course/${id}`).then(r => r.data),
-  getByDate:     (date)            => api.get(`/api/attendance/date/${date}`).then(r => r.data),
-  getPercentage: (stuId, courseId) => api.get(`/api/attendance/percentage/student/${stuId}/course/${courseId}`).then(r => r.data),
-  getOverall:    (id)              => api.get(`/api/attendance/overall/student/${id}`).then(r => r.data),
+  mark:       (data)  => api.post('/api/attendance/mark', data).then(r => r.data),
+  getByStudent: (id)  => api.get(`/api/attendance/student/${id}`).then(r => r.data),
+  getByCourse:  (id)  => api.get(`/api/attendance/course/${id}`).then(r => r.data),
+  getByDate:    (date) => api.get(`/api/attendance/date/${date}`).then(r => r.data),
+  getOverall:   (id)  => api.get(`/api/attendance/overall/student/${id}`).then(r => r.data),
+  getPercentage: (studentId, courseId) => api.get(`/api/attendance/percentage/student/${studentId}/course/${courseId}`).then(r => r.data),
+   getAllSummary: () => api.get('/api/attendance/summary/all').then(r => r.data.data),
 }
 
 export const dashboardService = {

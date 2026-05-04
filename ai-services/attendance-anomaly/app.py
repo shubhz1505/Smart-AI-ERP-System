@@ -1,3 +1,4 @@
+from fastapi.middleware.cors import CORSMiddleware
 # attendance-anomaly/app.py
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -5,6 +6,9 @@ import joblib
 import pandas as pd
 
 app = FastAPI(title="Attendance Anomaly Detector", version="1.0.0")
+
+app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
+
 
 model = joblib.load("../models/attendance_anomaly_model.pkl")
 
@@ -92,3 +96,10 @@ def predict_batch(students: list[AttendanceInput]):
         "flaggedForAdmin": sum(1 for r in results if r.flagAdmin),
         "predictions": results
     }
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8002)
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, host='0.0.0.0', port=8002)
+

@@ -1,7 +1,7 @@
-package com.studenterp.security;
+package com.studenterp.student_erp.security;
 
-import com.studenterp.entity.User;
-import com.studenterp.repository.UserRepository;
+import com.studenterp.student_erp.entity.User;
+import com.studenterp.student_erp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,3 +33,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .build();
     }
 }
+
+
+
+
+

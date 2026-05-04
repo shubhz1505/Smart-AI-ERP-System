@@ -1,6 +1,6 @@
-package com.studenterp.repository;
+package com.studenterp.student_erp.repository;
 
-import com.studenterp.entity.Payment;
+import com.studenterp.student_erp.entity.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,3 +12,8 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     List<Payment> findByStudentId(Long studentId);
     List<Payment> findByFeeId(Long feeId);
 }
+
+
+
+
+

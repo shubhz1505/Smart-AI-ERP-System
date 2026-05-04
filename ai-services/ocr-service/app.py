@@ -1,3 +1,4 @@
+from fastapi.middleware.cors import CORSMiddleware
 # ocr-service/app.py
 from fastapi import FastAPI, UploadFile, File, Form
 from pydantic import BaseModel
@@ -7,6 +8,9 @@ import io
 from typing import Optional
 
 app = FastAPI(title="Document OCR Service", version="1.0.0")
+
+app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
+
 
 # Try to import pytesseract, fallback to mock if not installed
 try:
@@ -116,3 +120,6 @@ async def extract_document(
         needsReview=needs_review,
         rawText=raw_text[:500]
     )
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8005)

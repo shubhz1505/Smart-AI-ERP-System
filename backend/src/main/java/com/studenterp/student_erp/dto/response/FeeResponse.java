@@ -1,6 +1,6 @@
-package com.studenterp.dto.response;
+package com.studenterp.student_erp.dto.response;
 
-import com.studenterp.entity.Fee;
+import com.studenterp.student_erp.entity.Fee;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -45,3 +45,8 @@ public class FeeResponse {
                 .build();
     }
 }
+
+
+
+
+

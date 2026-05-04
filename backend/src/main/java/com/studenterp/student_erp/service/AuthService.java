@@ -1,14 +1,14 @@
-package com.studenterp.service;
+package com.studenterp.student_erp.service;
 
 import com.studenterp.student_erp.dto.request.LoginRequest;
 import com.studenterp.student_erp.dto.request.RegisterRequest;
-import com.studenterp.dto.response.AuthResponse;
-import com.studenterp.entity.Student;
-import com.studenterp.entity.User;
-import com.studenterp.exception.ResourceNotFoundException;
-import com.studenterp.repository.StudentRepository;
-import com.studenterp.repository.UserRepository;
-import com.studenterp.security.JwtUtil;
+import com.studenterp.student_erp.dto.response.AuthResponse;
+import com.studenterp.student_erp.entity.Student;
+import com.studenterp.student_erp.entity.User;
+import com.studenterp.student_erp.exception.ResourceNotFoundException;
+import com.studenterp.student_erp.repository.StudentRepository;
+import com.studenterp.student_erp.repository.UserRepository;
+import com.studenterp.student_erp.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -128,3 +128,8 @@ public class AuthService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }
+
+
+
+
+

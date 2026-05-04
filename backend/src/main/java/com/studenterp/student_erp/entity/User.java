@@ -1,4 +1,4 @@
-package com.studenterp.entity;
+package com.studenterp.student_erp.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -55,3 +55,8 @@ public class User {
         updatedAt = LocalDateTime.now();
     }
 }
+
+
+
+
+

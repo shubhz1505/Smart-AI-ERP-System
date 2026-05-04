@@ -9,30 +9,33 @@ export default {
       },
       colors: {
         bg: {
-          primary:   '#0a0e1a',
-          secondary: '#0f1526',
-          tertiary:  '#141d33',
-          hover:     '#1a2540',
+          primary:   '#f0f4f8',
+          secondary: '#ffffff',
+          tertiary:  '#f8fafc',
+          hover:     '#eff6ff',
         },
         brand: {
-          DEFAULT: '#6c63ff',
-          light:   '#8b5cf6',
-          cyan:    '#06b6d4',
+          DEFAULT: '#1a73e8',
+          light:   '#4285f4',
+          dark:    '#0d47a1',
+          cyan:    '#0891b2',
         },
         border: {
-          DEFAULT: 'rgba(255,255,255,0.07)',
-          strong:  'rgba(255,255,255,0.12)',
+          DEFAULT: '#e2e8f0',
+          strong:  '#cbd5e1',
         },
       },
       animation: {
-        'fade-in': 'fadeIn 0.4s ease',
+        'fade-in':    'fadeIn 0.3s ease',
         'pulse-slow': 'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite',
       },
       keyframes: {
-        fadeIn: { from: { opacity: 0, transform: 'translateY(8px)' }, to: { opacity: 1, transform: 'translateY(0)' } },
+        fadeIn: {
+          from: { opacity: 0, transform: 'translateY(6px)' },
+          to:   { opacity: 1, transform: 'translateY(0)' }
+        },
       },
     },
   },
   plugins: [],
 }
-

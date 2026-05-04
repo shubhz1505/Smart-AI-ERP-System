@@ -1,6 +1,6 @@
-package com.studenterp.repository;
+package com.studenterp.student_erp.repository;
 
-import com.studenterp.entity.Enrollment;
+import com.studenterp.student_erp.entity.Enrollment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +12,12 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
 
     List<Enrollment> findByStudentId(Long studentId);
     List<Enrollment> findByCourseId(Long courseId);
+    long countByCourseId(Long courseId);
     Optional<Enrollment> findByStudentIdAndCourseId(Long studentId, Long courseId);
     boolean existsByStudentIdAndCourseId(Long studentId, Long courseId);
 }
+
+
+
+
+

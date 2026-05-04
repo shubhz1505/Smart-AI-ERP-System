@@ -1,11 +1,11 @@
-package com.studenterp.controller;
+package com.studenterp.student_erp.controller;
 
 import com.studenterp.student_erp.dto.request.FeeRequest;
 import com.studenterp.student_erp.dto.request.PaymentRequest;
-import com.studenterp.dto.response.ApiResponse;
-import com.studenterp.dto.response.FeeResponse;
-import com.studenterp.entity.Payment;
-import com.studenterp.service.FeeService;
+import com.studenterp.student_erp.dto.response.ApiResponse;
+import com.studenterp.student_erp.dto.response.FeeResponse;
+import com.studenterp.student_erp.entity.Payment;
+import com.studenterp.student_erp.service.FeeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -133,3 +133,8 @@ public class FeeController {
         );
     }
 }
+
+
+
+
+

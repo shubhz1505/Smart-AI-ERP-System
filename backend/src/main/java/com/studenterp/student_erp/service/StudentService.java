@@ -1,22 +1,28 @@
-package com.studenterp.service;
+package com.studenterp.student_erp.service;
 
 import com.studenterp.student_erp.dto.request.StudentRequest;
-import com.studenterp.dto.response.StudentResponse;
-import com.studenterp.entity.Student;
-import com.studenterp.exception.ResourceNotFoundException;
-import com.studenterp.repository.StudentRepository;
+import com.studenterp.student_erp.dto.response.StudentResponse;
+import com.studenterp.student_erp.entity.Student;
+import com.studenterp.student_erp.exception.ResourceNotFoundException;
+import com.studenterp.student_erp.repository.UserRepository;
+import com.studenterp.student_erp.repository.StudentRepository;
+import com.studenterp.student_erp.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     // GET ALL STUDENTS
     public List<StudentResponse> getAllStudents() {
@@ -52,6 +58,21 @@ public class StudentService {
             throw new RuntimeException("Email already exists: " + request.getEmail());
         }
 
+        // Create or reuse user account
+        User user;
+        if (userRepository.existsByEmail(request.getEmail())) {
+            user = userRepository.findByEmail(request.getEmail())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+        } else {
+            user = User.builder()
+                    .email(request.getEmail())
+                    .password(passwordEncoder.encode("Admin@123"))
+                    .role(User.Role.student)
+                    .isActive(true)
+                    .build();
+            user = userRepository.save(user);
+        }
+
         Student student = Student.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
@@ -64,6 +85,7 @@ public class StudentService {
                 .parentPhone(request.getParentPhone())
                 .parentEmail(request.getParentEmail())
                 .status(Student.Status.active)
+                .userId(user.getId())
                 .build();
 
         Student saved = studentRepository.save(student);
@@ -98,14 +120,26 @@ public class StudentService {
         return StudentResponse.fromEntity(updated);
     }
 
-    // DELETE STUDENT (soft delete)
+    // DELETE STUDENT
     @Transactional
     public void deleteStudent(Long id) {
+
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Student", "id", id));
 
-        student.setStatus(Student.Status.inactive);
-        studentRepository.save(student);
+        Long userId = student.getUserId();
+
+        // Delete student FIRST to avoid FK constraint
+        studentRepository.deleteById(id);
+
+        // Then delete linked user
+        if (userId != null) {
+            try {
+                userRepository.deleteById(userId);
+            } catch (Exception e) {
+                System.out.println("Could not delete user: " + e.getMessage());
+            }
+        }
     }
 
     // SEARCH STUDENTS

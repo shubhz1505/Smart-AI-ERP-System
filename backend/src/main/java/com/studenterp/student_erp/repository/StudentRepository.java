@@ -1,6 +1,6 @@
-package com.studenterp.repository;
+package com.studenterp.student_erp.repository;
 
-import com.studenterp.entity.Student;
+import com.studenterp.student_erp.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,3 +29,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     // Get students by department
     List<Student> findByDepartment(String department);
 }
+
+
+
+
+

@@ -1,3 +1,4 @@
+from fastapi.middleware.cors import CORSMiddleware
 # fee-predictor/app.py
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -7,6 +8,9 @@ import pandas as pd
 from typing import Optional
 
 app = FastAPI(title="Fee Defaulter Predictor", version="1.0.0")
+
+app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
+
 
 # Load model at startup
 model = joblib.load("../models/fee_defaulter_model.pkl")

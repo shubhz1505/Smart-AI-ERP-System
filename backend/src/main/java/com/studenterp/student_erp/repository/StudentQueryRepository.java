@@ -1,6 +1,6 @@
-package com.studenterp.repository;
+package com.studenterp.student_erp.repository;
 
-import com.studenterp.entity.StudentQuery;
+import com.studenterp.student_erp.entity.StudentQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -24,3 +24,8 @@ public interface StudentQueryRepository extends JpaRepository<StudentQuery, Long
     @Query("SELECT q.intent, COUNT(q) FROM StudentQuery q GROUP BY q.intent")
     List<Object[]> countByIntent();
 }
+
+
+
+
+

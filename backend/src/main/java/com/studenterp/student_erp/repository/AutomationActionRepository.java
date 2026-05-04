@@ -1,6 +1,6 @@
-package com.studenterp.repository;
+package com.studenterp.student_erp.repository;
 
-import com.studenterp.entity.AutomationAction;
+import com.studenterp.student_erp.entity.AutomationAction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -23,3 +23,8 @@ public interface AutomationActionRepository extends JpaRepository<AutomationActi
     @Query("SELECT COUNT(a) FROM AutomationAction a WHERE DATE(a.createdAt) = CURRENT_DATE")
     Long countTodayActions();
 }
+
+
+
+
+

@@ -30,3 +30,8 @@ public class FeeRequest {
     @JsonProperty("academicYear")
     private String academicYear;
 }
+
+
+
+
+

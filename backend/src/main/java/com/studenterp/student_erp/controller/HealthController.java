@@ -1,6 +1,6 @@
-package com.studenterp.controller;
+package com.studenterp.student_erp.controller;
 
-import com.studenterp.dto.response.ApiResponse;
+import com.studenterp.student_erp.dto.response.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,3 +24,8 @@ public class HealthController {
         );
     }
 }
+
+
+
+
+

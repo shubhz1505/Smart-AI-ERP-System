@@ -1,6 +1,6 @@
-package com.studenterp.repository;
+package com.studenterp.student_erp.repository;
 
-import com.studenterp.entity.User;
+import com.studenterp.student_erp.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,3 +15,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // Check if email already exists (for registration)
     boolean existsByEmail(String email);
 }
+
+
+
+
+

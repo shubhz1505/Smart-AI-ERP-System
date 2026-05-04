@@ -1,9 +1,13 @@
+from fastapi.middleware.cors import CORSMiddleware
 # query-classifier/app.py
 from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 
 app = FastAPI(title="Smart Query Classifier", version="1.0.0")
+
+app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
+
 
 model = joblib.load("../models/query_classifier_model.pkl")
 vectorizer = joblib.load("../models/query_vectorizer.pkl")

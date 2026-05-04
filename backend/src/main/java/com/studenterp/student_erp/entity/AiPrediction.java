@@ -1,4 +1,4 @@
-package com.studenterp.entity;
+package com.studenterp.student_erp.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ public class AiPrediction {
     @Column(name = "service_type")
     private String serviceType;
 
-    @Column(name = "input_data", columnDefinition = "JSON")
+    @Column(name = "input_data", columnDefinition = "LONGTEXT")
     private String inputData;
 
     @Column(name = "risk_score")
@@ -35,7 +35,7 @@ public class AiPrediction {
     @Column(name = "risk_level")
     private String riskLevel;
 
-    @Column(name = "prediction_result", columnDefinition = "JSON")
+    @Column(name = "prediction_result", columnDefinition = "LONGTEXT")
     private String predictionResult;
 
     @Column(name = "created_at")
@@ -46,3 +46,8 @@ public class AiPrediction {
         createdAt = LocalDateTime.now();
     }
 }
+
+
+
+
+

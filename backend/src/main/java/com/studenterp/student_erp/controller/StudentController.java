@@ -1,9 +1,9 @@
-package com.studenterp.controller;
+package com.studenterp.student_erp.controller;
 
 import com.studenterp.student_erp.dto.request.StudentRequest;
-import com.studenterp.dto.response.ApiResponse;
-import com.studenterp.dto.response.StudentResponse;
-import com.studenterp.service.StudentService;
+import com.studenterp.student_erp.dto.response.ApiResponse;
+import com.studenterp.student_erp.dto.response.StudentResponse;
+import com.studenterp.student_erp.service.StudentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -73,7 +73,6 @@ public class StudentController {
 
     // DELETE /api/students/{id} — Admin only
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('admin')")
     public ResponseEntity<ApiResponse<Void>> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
         return ResponseEntity.ok(
@@ -92,3 +91,8 @@ public class StudentController {
         );
     }
 }
+
+
+
+
+

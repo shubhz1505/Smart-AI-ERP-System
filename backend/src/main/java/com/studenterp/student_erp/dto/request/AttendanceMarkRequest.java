@@ -1,7 +1,7 @@
-package com.studenterp.dto.request;
+package com.studenterp.student_erp.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.studenterp.entity.Attendance;
+import com.studenterp.student_erp.entity.Attendance;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -32,3 +32,8 @@ public class AttendanceMarkRequest {
         private Attendance.AttendanceStatus status;
     }
 }
+
+
+
+
+

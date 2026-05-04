@@ -1,6 +1,6 @@
-package com.studenterp.exception;
+package com.studenterp.student_erp.exception;
 
-import com.studenterp.dto.response.ApiResponse;
+import com.studenterp.student_erp.dto.response.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -66,3 +66,8 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error("Something went wrong: " + ex.getMessage()));
     }
 }
+
+
+
+
+

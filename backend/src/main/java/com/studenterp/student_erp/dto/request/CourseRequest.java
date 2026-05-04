@@ -1,4 +1,4 @@
-package com.studenterp.dto.request;
+package com.studenterp.student_erp.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
@@ -27,3 +27,8 @@ public class CourseRequest {
     @JsonProperty("description")
     private String description;
 }
+
+
+
+
+

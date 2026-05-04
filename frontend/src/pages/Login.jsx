@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
+import { authService } from '../services/authService'
+import { studentService } from '../services/studentService'
 import toast from 'react-hot-toast'
 import { GraduationCap, Eye, EyeOff } from 'lucide-react'
-import axios from 'axios'
 
 export default function Login() {
   const [email, setEmail]       = useState('')
@@ -20,14 +21,8 @@ export default function Login() {
     }
     setLoading(true)
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', {
-        email,
-        password,
-      })
-
-      // Backend shape: { success, message, data: { token, id, email, role, firstName, lastName } }
-      const body  = res.data
-      const inner = body?.data
+      const body  = await authService.login({ email, password })
+      const inner = body?.data || body
 
       const token =
         inner?.token       ||
@@ -38,7 +33,6 @@ export default function Login() {
 
       if (!token) {
         toast.error('Login failed: no token received')
-        console.error('Full response was:', body)
         return
       }
 
@@ -51,29 +45,29 @@ export default function Login() {
 
       setAuth(token, user)
       toast.success(`Welcome back, ${user.name || user.email}!`)
+
+      // Resolve real studentId for student users
+      if (user.role === 'student' && inner?.id) {
+        try {
+          const studentRes  = await studentService.getByUserId(inner.id)
+          const studentData = studentRes?.data || studentRes
+          setAuth(token, {
+            ...user,
+            studentId:  studentData?.id,
+            rollNumber: studentData?.rollNumber,
+            name: `${studentData?.firstName || ''} ${studentData?.lastName || ''}`.trim() || user.name,
+          })
+        } catch (e) {
+          console.warn('Could not resolve studentId for user', e)
+        }
+      }
+
       navigate('/dashboard')
-      // Get student ID after login
-if ((userData?.role || 'student').toLowerCase() === 'student') {
-  try {
-    const studentRes = await axios.get(
-      `http://localhost:5000/api/students/user/${userData?.id || ''}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    )
-    const studentData = studentRes.data?.data || studentRes.data
-    setAuth(token, { 
-      ...user, 
-      studentId: studentData?.id,
-      name: `${studentData?.firstName || ''} ${studentData?.lastName || ''}`.trim() || user.name
-    })
-  } catch (e) {
-    console.log('Could not fetch student ID', e)
-  }
-}
 
     } catch (err) {
       console.error('Login error:', err)
       if (err.code === 'ERR_NETWORK') {
-        toast.error('Cannot connect to backend. Is Spring Boot running on port 5000?')
+        toast.error('Cannot connect to backend. Check VITE_API_URL.')
       } else {
         const msg =
           err.response?.data?.message ||

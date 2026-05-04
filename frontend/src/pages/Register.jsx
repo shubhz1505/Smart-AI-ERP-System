@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
+import { authService } from '../services/authService'
 import toast from 'react-hot-toast'
 import { GraduationCap, Eye, EyeOff } from 'lucide-react'
-import axios from 'axios'
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -50,17 +50,14 @@ export default function Register() {
         role:     form.role,
       }
 
-      // Only send student fields if role is student
       if (form.role === 'student') {
         payload.rollNumber = form.rollNumber
         payload.department = form.department
         payload.phone      = form.phone
       }
 
-      const res = await axios.post('http://localhost:5000/api/auth/register', payload)
-
-      const body  = res.data
-      const inner = body?.data
+      const body  = await authService.register(payload)
+      const inner = body?.data || body
 
       const token =
         inner?.token       ||
@@ -87,7 +84,7 @@ export default function Register() {
     } catch (err) {
       console.error('Register error:', err)
       if (err.code === 'ERR_NETWORK') {
-        toast.error('Cannot connect to backend. Is Spring Boot running on port 5000?')
+        toast.error('Cannot connect to backend. Check VITE_API_URL.')
       } else {
         const msg =
           err.response?.data?.message ||
@@ -157,7 +154,6 @@ export default function Register() {
             </select>
           </div>
 
-          {/* Student-only fields */}
           {form.role === 'student' && (
             <>
               <div>

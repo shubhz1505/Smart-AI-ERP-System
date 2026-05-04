@@ -1,6 +1,6 @@
-package com.studenterp.repository;
+package com.studenterp.student_erp.repository;
 
-import com.studenterp.entity.Fee;
+import com.studenterp.student_erp.entity.Fee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -32,3 +32,8 @@ public interface FeeRepository extends JpaRepository<Fee, Long> {
 
     List<Fee> findByStudentIdAndSemester(Long studentId, Integer semester);
 }
+
+
+
+
+

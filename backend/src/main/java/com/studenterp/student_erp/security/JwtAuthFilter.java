@@ -1,4 +1,4 @@
-package com.studenterp.security;
+package com.studenterp.student_erp.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -78,3 +78,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
+
+
+
+
+

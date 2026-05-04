@@ -1,4 +1,4 @@
-package com.studenterp.config;
+package com.studenterp.student_erp.config;
 
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class HibernateConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("com.studenterp.entity");
+        em.setPackagesToScan("com.studenterp.student_erp.entity");
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setDatabasePlatform("org.hibernate.dialect.MySQLDialect");
@@ -42,3 +42,9 @@ public class HibernateConfig {
         return WebClient.builder();
     }
 }
+
+
+
+
+
+

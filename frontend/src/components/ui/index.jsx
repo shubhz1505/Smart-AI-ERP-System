@@ -24,7 +24,7 @@ export function StatCard({ icon: Icon, label, value, delta, deltaUp, color = 'bl
       <div className="flex items-start justify-between">
         <div>
           <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">{label}</p>
-          <p className="font-display text-2xl font-bold text-white">{value}{suffix}</p>
+          <p className="font-display text-2xl font-bold text-gray-900">{value}{suffix}</p>
           {delta && (
             <p className={`text-xs mt-1.5 flex items-center gap-1 ${deltaUp ? 'text-green-400' : 'text-red-400'}`}>
               {deltaUp ? '▲' : '▼'} {delta}
@@ -107,7 +107,7 @@ export function AlertItem({ type = 'info', icon, title, desc, time }) {
     <div className={`alert-item ${borderMap[type]}`}>
       <span className="text-lg leading-none mt-0.5">{icon}</span>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-semibold text-white">{title}</p>
+        <p className="text-sm font-semibold text-black">{title}</p>
         <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">{desc}</p>
         <p className="text-[10px] text-gray-600 mt-1">{time}</p>
       </div>

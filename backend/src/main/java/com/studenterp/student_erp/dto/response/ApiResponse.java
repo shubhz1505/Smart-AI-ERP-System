@@ -1,4 +1,4 @@
-package com.studenterp.dto.response;
+package com.studenterp.student_erp.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,3 +40,8 @@ public class ApiResponse<T> {
                 .build();
     }
 }
+
+
+
+
+

@@ -1,7 +1,7 @@
-package com.studenterp.controller;
+package com.studenterp.student_erp.controller;
 
-import com.studenterp.dto.response.ApiResponse;
-import com.studenterp.service.DashboardService;
+import com.studenterp.student_erp.dto.response.ApiResponse;
+import com.studenterp.student_erp.service.DashboardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,3 +38,10 @@ public class DashboardController {
         );
     }
 }
+
+
+
+
+
+
+

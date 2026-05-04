@@ -1,6 +1,6 @@
-package com.studenterp.repository;
+package com.studenterp.student_erp.repository;
 
-import com.studenterp.entity.Attendance;
+import com.studenterp.student_erp.entity.Attendance;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -37,3 +37,8 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     Double getAttendancePercentage(@Param("studentId") Long studentId,
                                    @Param("courseId") Long courseId);
 }
+
+
+
+
+

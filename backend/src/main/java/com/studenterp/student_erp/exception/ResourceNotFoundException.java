@@ -1,4 +1,4 @@
-package com.studenterp.exception;
+package com.studenterp.student_erp.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -36,3 +36,8 @@ public class ResourceNotFoundException extends RuntimeException {
         return fieldValue;
     }
 }
+
+
+
+
+

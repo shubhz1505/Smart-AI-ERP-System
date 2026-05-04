@@ -1,8 +1,8 @@
-package com.studenterp.controller;
+package com.studenterp.student_erp.controller;
 
-import com.studenterp.dto.response.ApiResponse;
-import com.studenterp.service.AiDashboardService;
-import com.studenterp.service.AutomationEngineService;
+import com.studenterp.student_erp.dto.response.ApiResponse;
+import com.studenterp.student_erp.service.AiDashboardService;
+import com.studenterp.student_erp.service.AutomationEngineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -132,3 +132,8 @@ public class AiController {
         );
     }
 }
+
+
+
+
+

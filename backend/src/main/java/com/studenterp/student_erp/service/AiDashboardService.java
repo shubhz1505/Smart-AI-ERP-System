@@ -1,7 +1,7 @@
-package com.studenterp.service;
+package com.studenterp.student_erp.service;
 
-import com.studenterp.entity.*;
-import com.studenterp.repository.*;
+import com.studenterp.student_erp.entity.*;
+import com.studenterp.student_erp.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -142,21 +142,41 @@ public class AiDashboardService {
         dashboard.put("pendingEscalations", pendingEscalations);
         dashboard.put("pendingEscalationCount", pendingEscalations.size());
 
-        // ── High Risk Students ──
-        List<Map<String, Object>> highRiskStudents = aiPredictionRepository
-                .findByRiskLevel("HIGH")
-                .stream()
+        // ── High Risk Students — includes all risk types from all services ──
+        List<AiPrediction> riskyPredictions = new ArrayList<>();
+
+// Attendance — HIGH and LOW_ATTENDANCE are both risky
+        riskyPredictions.addAll(aiPredictionRepository.findByRiskLevel("HIGH"));
+        riskyPredictions.addAll(aiPredictionRepository.findByRiskLevel("MEDIUM"));
+        riskyPredictions.addAll(aiPredictionRepository.findByRiskLevel("LOW_ATTENDANCE"));
+
+// Sort by risk score descending, take top 10, remove duplicates by studentId+serviceType
+        List<Map<String, Object>> highRiskStudents = riskyPredictions.stream()
+                .sorted((a, b) -> {
+                    if (b.getRiskScore() == null) return -1;
+                    if (a.getRiskScore() == null) return 1;
+                    return b.getRiskScore().compareTo(a.getRiskScore());
+                })
+                // Remove duplicate student+service combinations
+                .filter(new java.util.function.Predicate<AiPrediction>() {
+                    final java.util.Set<String> seen = new java.util.HashSet<>();
+                    public boolean test(AiPrediction p) {
+                        return seen.add(p.getStudentId() + "_" + p.getServiceType());
+                    }
+                })
+                .limit(10)
                 .map(p -> {
                     Map<String, Object> map = new HashMap<>();
-                    map.put("studentId", p.getStudentId());
+                    map.put("studentId",   p.getStudentId());
                     map.put("serviceType", p.getServiceType());
-                    map.put("riskScore", p.getRiskScore());
-                    map.put("detectedAt", p.getCreatedAt());
+                    map.put("riskScore",   p.getRiskScore());
+                    map.put("riskLevel",   p.getRiskLevel());
+                    map.put("detectedAt",  p.getCreatedAt());
 
-                    // Get student name
                     studentRepository.findById(p.getStudentId()).ifPresent(s -> {
                         map.put("studentName", s.getFirstName() + " " + s.getLastName());
-                        map.put("rollNumber", s.getRollNumber());
+                        map.put("rollNumber",  s.getRollNumber());
+                        map.put("department",  s.getDepartment());
                     });
 
                     return map;
@@ -179,6 +199,76 @@ public class AiDashboardService {
         systemStatus.put("lastFeeAutomation", "Check automation_actions table");
         systemStatus.put("lastAttendanceCheck", "Check automation_actions table");
         dashboard.put("systemStatus", systemStatus);
+        // ── Risk Timeline (last 7 days for graph) ──────────────────────────────
+// Fetch all predictions once
+        List<AiPrediction> allPredictions = aiPredictionRepository.findAll();
+
+        List<Map<String, Object>> riskTimeline = new ArrayList<>();
+        for (int i = 6; i >= 0; i--) {
+            java.time.LocalDate day = java.time.LocalDate.now().minusDays(i);
+            java.time.LocalDateTime start = day.atStartOfDay();
+            java.time.LocalDateTime end = day.atTime(23, 59, 59);
+
+            // Count ALL predictions for that day (not just HIGH)
+            // Use average risk score * 10 to get meaningful numbers
+            long feeCount = allPredictions.stream()
+                    .filter(p -> p.getCreatedAt() != null
+                            && "FEE_DEFAULTER".equals(p.getServiceType())
+                            && !p.getCreatedAt().isBefore(start)
+                            && !p.getCreatedAt().isAfter(end))
+                    .count();
+
+            double feeAvgRisk = allPredictions.stream()
+                    .filter(p -> p.getCreatedAt() != null
+                            && "FEE_DEFAULTER".equals(p.getServiceType())
+                            && !p.getCreatedAt().isBefore(start)
+                            && !p.getCreatedAt().isAfter(end)
+                            && p.getRiskScore() != null)
+                    .mapToDouble(p -> p.getRiskScore().doubleValue())
+                    .average().orElse(0.0);
+
+            long attCount = allPredictions.stream()
+                    .filter(p -> p.getCreatedAt() != null
+                            && "ATTENDANCE_ANOMALY".equals(p.getServiceType())
+                            && !p.getCreatedAt().isBefore(start)
+                            && !p.getCreatedAt().isAfter(end))
+                    .count();
+
+            double attAvgRisk = allPredictions.stream()
+                    .filter(p -> p.getCreatedAt() != null
+                            && "ATTENDANCE_ANOMALY".equals(p.getServiceType())
+                            && !p.getCreatedAt().isBefore(start)
+                            && !p.getCreatedAt().isAfter(end)
+                            && p.getRiskScore() != null)
+                    .mapToDouble(p -> p.getRiskScore().doubleValue())
+                    .average().orElse(0.0);
+
+            long examCount = allPredictions.stream()
+                    .filter(p -> p.getCreatedAt() != null
+                            && "EXAM_PREDICTOR".equals(p.getServiceType())
+                            && !p.getCreatedAt().isBefore(start)
+                            && !p.getCreatedAt().isAfter(end))
+                    .count();
+
+            double examAvgRisk = allPredictions.stream()
+                    .filter(p -> p.getCreatedAt() != null
+                            && "EXAM_PREDICTOR".equals(p.getServiceType())
+                            && !p.getCreatedAt().isBefore(start)
+                            && !p.getCreatedAt().isAfter(end)
+                            && p.getRiskScore() != null)
+                    .mapToDouble(p -> p.getRiskScore().doubleValue())
+                    .average().orElse(0.0);
+
+            Map<String, Object> dayData = new HashMap<>();
+            dayData.put("day", day.getDayOfWeek().toString().substring(0, 3));
+            dayData.put("date", day.toString());
+            // feeRisk = number of fee predictions that day, weighted by avg risk
+            dayData.put("feeRisk",  (long) Math.round(feeCount  * feeAvgRisk  * 10));
+            dayData.put("attRisk",  (long) Math.round(attCount  * attAvgRisk  * 10));
+            dayData.put("perfRisk", (long) Math.round(examCount * examAvgRisk * 10));
+            riskTimeline.add(dayData);
+        }
+        dashboard.put("riskTimeline", riskTimeline);
 
         return dashboard;
     }
@@ -377,3 +467,9 @@ public class AiDashboardService {
         }
     }
 }
+
+
+
+
+
+

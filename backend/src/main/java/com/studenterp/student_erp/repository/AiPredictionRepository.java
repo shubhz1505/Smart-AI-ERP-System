@@ -1,6 +1,6 @@
-package com.studenterp.repository;
+package com.studenterp.student_erp.repository;
 
-import com.studenterp.entity.AiPrediction;
+import com.studenterp.student_erp.entity.AiPrediction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,7 +13,7 @@ public interface AiPredictionRepository extends JpaRepository<AiPrediction, Long
     List<AiPrediction> findByServiceType(String serviceType);
     List<AiPrediction> findByRiskLevel(String riskLevel);
 
-    @Query("SELECT COUNT(p) FROM AiPrediction p WHERE p.riskLevel = 'HIGH'")
+    @Query("SELECT COUNT(ap) FROM AiPrediction ap WHERE ap.riskLevel IN ('HIGH', 'LOW_ATTENDANCE')")
     Long countHighRiskPredictions();
 
     @Query("SELECT COUNT(p) FROM AiPrediction p WHERE p.serviceType = :serviceType")
@@ -23,3 +23,8 @@ public interface AiPredictionRepository extends JpaRepository<AiPrediction, Long
 
     List<AiPrediction> findByStudentIdAndServiceType(Long studentId, String serviceType);
 }
+
+
+
+
+

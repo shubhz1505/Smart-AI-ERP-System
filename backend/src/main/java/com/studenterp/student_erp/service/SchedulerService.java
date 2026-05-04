@@ -1,4 +1,4 @@
-package com.studenterp.service;
+package com.studenterp.student_erp.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,3 +38,8 @@ public class SchedulerService {
         }
     }
 }
+
+
+
+
+

@@ -1,14 +1,14 @@
-package com.studenterp.service;
+package com.studenterp.student_erp.service;
 
 import com.studenterp.student_erp.dto.request.FeeRequest;
 import com.studenterp.student_erp.dto.request.PaymentRequest;
-import com.studenterp.dto.response.FeeResponse;
-import com.studenterp.entity.Fee;
-import com.studenterp.entity.Payment;
-import com.studenterp.exception.ResourceNotFoundException;
-import com.studenterp.repository.FeeRepository;
-import com.studenterp.repository.PaymentRepository;
-import com.studenterp.repository.StudentRepository;
+import com.studenterp.student_erp.dto.response.FeeResponse;
+import com.studenterp.student_erp.entity.Fee;
+import com.studenterp.student_erp.entity.Payment;
+import com.studenterp.student_erp.exception.ResourceNotFoundException;
+import com.studenterp.student_erp.repository.FeeRepository;
+import com.studenterp.student_erp.repository.PaymentRepository;
+import com.studenterp.student_erp.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -177,3 +177,8 @@ public class FeeService {
         return paymentRepository.findByFeeId(feeId);
     }
 }
+
+
+
+
+

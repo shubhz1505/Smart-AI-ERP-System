@@ -1,13 +1,13 @@
-package com.studenterp.service;
+package com.studenterp.student_erp.service;
 
-import com.studenterp.dto.request.CourseRequest;
-import com.studenterp.dto.response.CourseResponse;
-import com.studenterp.entity.Course;
-import com.studenterp.entity.Enrollment;
-import com.studenterp.exception.ResourceNotFoundException;
-import com.studenterp.repository.CourseRepository;
-import com.studenterp.repository.EnrollmentRepository;
-import com.studenterp.repository.StudentRepository;
+import com.studenterp.student_erp.dto.request.CourseRequest;
+import com.studenterp.student_erp.dto.response.CourseResponse;
+import com.studenterp.student_erp.entity.Course;
+import com.studenterp.student_erp.entity.Enrollment;
+import com.studenterp.student_erp.exception.ResourceNotFoundException;
+import com.studenterp.student_erp.repository.CourseRepository;
+import com.studenterp.student_erp.repository.EnrollmentRepository;
+import com.studenterp.student_erp.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,3 +105,8 @@ public class CourseService {
                 .collect(Collectors.toList());
     }
 }
+
+
+
+
+

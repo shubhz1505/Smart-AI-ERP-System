@@ -1,10 +1,10 @@
-package com.studenterp.service;
+package com.studenterp.student_erp.service;
 
-import com.studenterp.dto.request.AttendanceMarkRequest;
-import com.studenterp.entity.Attendance;
-import com.studenterp.exception.ResourceNotFoundException;
-import com.studenterp.repository.AttendanceRepository;
-import com.studenterp.repository.CourseRepository;
+import com.studenterp.student_erp.dto.request.AttendanceMarkRequest;
+import com.studenterp.student_erp.entity.Attendance;
+import com.studenterp.student_erp.exception.ResourceNotFoundException;
+import com.studenterp.student_erp.repository.AttendanceRepository;
+import com.studenterp.student_erp.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,3 +92,8 @@ public class AttendanceService {
         return result;
     }
 }
+
+
+
+
+

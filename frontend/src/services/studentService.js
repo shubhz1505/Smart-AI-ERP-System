@@ -8,4 +8,5 @@ export const studentService = {
   update:      (id, data) => api.put(`/api/students/${id}`, data).then(r => r.data),
   delete:      (id)     => api.delete(`/api/students/${id}`).then(r => r.data),
   search:      (q)      => api.get('/api/students/search', { params: { q } }).then(r => r.data),
+  getById: (id) => api.get(`/api/students/${id}`).then(r => r.data),
 }

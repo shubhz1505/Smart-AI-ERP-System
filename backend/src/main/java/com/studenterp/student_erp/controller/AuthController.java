@@ -1,11 +1,11 @@
-package com.studenterp.controller;
+package com.studenterp.student_erp.controller;
 
 import com.studenterp.student_erp.dto.request.LoginRequest;
 import com.studenterp.student_erp.dto.request.RegisterRequest;
-import com.studenterp.dto.response.ApiResponse;
-import com.studenterp.dto.response.AuthResponse;
-import com.studenterp.entity.User;
-import com.studenterp.service.AuthService;
+import com.studenterp.student_erp.dto.response.ApiResponse;
+import com.studenterp.student_erp.dto.response.AuthResponse;
+import com.studenterp.student_erp.entity.User;
+import com.studenterp.student_erp.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -67,3 +67,8 @@ public class AuthController {
         );
     }
 }
+
+
+
+
+

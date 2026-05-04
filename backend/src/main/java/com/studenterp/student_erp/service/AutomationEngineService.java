@@ -1,7 +1,7 @@
-package com.studenterp.service;
+package com.studenterp.student_erp.service;
 
-import com.studenterp.entity.*;
-import com.studenterp.repository.*;
+import com.studenterp.student_erp.entity.*;
+import com.studenterp.student_erp.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,6 @@ public class AutomationEngineService {
     // ================================================
     // FEE AUTOMATION — called by scheduler daily
     // ================================================
-
     public Map<String, Object> runFeeAutomation() {
         log.info("🤖 Starting Fee Automation Engine...");
 
@@ -50,7 +49,7 @@ public class AutomationEngineService {
                         .count();
                 double attendancePct = total > 0 ? (present * 100.0 / total) : 75.0;
 
-                // Calculate days since payment
+                // Calculate days since due date
                 BigDecimal pendingAmount = fee.getTotalAmount().subtract(fee.getPaidAmount());
                 int daysSince = fee.getDueDate() != null ?
                         (int) java.time.temporal.ChronoUnit.DAYS.between(
@@ -67,32 +66,44 @@ public class AutomationEngineService {
                         fee.getSemester() != null ? fee.getSemester() : 1
                 );
 
-                // Save prediction to DB
-                savePrediction(student.getId(), "FEE_DEFAULTER", prediction);
+                // ── Calculate risk from REAL data ──────────────────────
+                double calculatedRiskScore = calculateFeeRiskScore(
+                        pendingAmount.doubleValue(), daysSince, attendancePct);
+                String calculatedRiskLevel = getRiskLevel(calculatedRiskScore);
 
-                String riskLevel = (String) prediction.getOrDefault("riskLevel", "LOW");
-                double riskScore = ((Number) prediction.getOrDefault("riskScore", 0.0)).doubleValue();
+                // Override Python result with calculated risk if Python returns 0
+                double finalRiskScore = calculatedRiskScore;
+                String finalRiskLevel = calculatedRiskLevel;
 
-                // Decision Engine — take action based on risk
-                String action = decideAndActOnFeeRisk(student, fee, riskLevel, riskScore, pendingAmount);
-
-                if (!action.equals("NO_ACTION")) {
-                    remindersScheduled++;
+                // If Python returned meaningful data, use it
+                double pythonScore = ((Number) prediction.getOrDefault("riskScore", 0.0)).doubleValue();
+                if (pythonScore > 0) {
+                    finalRiskScore = pythonScore;
+                    finalRiskLevel = getRiskLevel(finalRiskScore);
                 }
-                if (riskLevel.equals("HIGH")) {
-                    highRiskCount++;
-                }
+
+                // Save prediction with correct risk
+                savePredictionWithRisk(student.getId(), "FEE_DEFAULTER",
+                        prediction, finalRiskScore, finalRiskLevel);
+
+                // Decision Engine
+                String action = decideAndActOnFeeRisk(
+                        student, fee, finalRiskLevel, finalRiskScore, pendingAmount);
+
+                if (!action.equals("NO_ACTION")) remindersScheduled++;
+                if (finalRiskLevel.equals("HIGH")) highRiskCount++;
 
                 results.add(Map.of(
                         "studentId", student.getId(),
                         "studentName", student.getFirstName() + " " + student.getLastName(),
-                        "riskLevel", riskLevel,
-                        "riskScore", riskScore,
+                        "riskLevel", finalRiskLevel,
+                        "riskScore", finalRiskScore,
                         "action", action
                 ));
 
             } catch (Exception e) {
-                log.error("Error processing fee automation for fee {}: {}", fee.getId(), e.getMessage());
+                log.error("Error processing fee automation for fee {}: {}",
+                        fee.getId(), e.getMessage());
             }
         }
 
@@ -105,6 +116,28 @@ public class AutomationEngineService {
                 "highRiskCount", highRiskCount,
                 "results", results
         );
+    }
+
+    // ── Calculate fee risk from real data ─────────────────────────────────────
+    private double calculateFeeRiskScore(double pendingAmount, int daysSince, double attendancePct) {
+        double risk = 0.0;
+
+        // Days overdue contributes most to risk
+        if (daysSince >= 60) risk += 0.5;
+        else if (daysSince >= 30) risk += 0.35;
+        else if (daysSince >= 15) risk += 0.2;
+        else risk += 0.05;
+
+        // Pending amount
+        if (pendingAmount >= 30000) risk += 0.3;
+        else if (pendingAmount >= 10000) risk += 0.2;
+        else if (pendingAmount > 0) risk += 0.1;
+
+        // Low attendance = higher default risk
+        if (attendancePct < 60) risk += 0.2;
+        else if (attendancePct < 75) risk += 0.1;
+
+        return Math.min(risk, 1.0);
     }
 
     private String decideAndActOnFeeRisk(
@@ -131,21 +164,12 @@ public class AutomationEngineService {
         }
 
         if (message != null) {
-            // Save action to DB (in real system, also send email/SMS)
-            AutomationAction automationAction = AutomationAction.builder()
-                    .studentId(student.getId())
-                    .actionType(action)
-                    .triggerReason("Risk Score: " + riskScore + " | Level: " + riskLevel)
-                    .messageSent(message)
-                    .status("completed")
-                    .build();
             saveActionLog(
                     student.getId(),
                     action,
-                    "Risk Score: " + riskScore + " | Level: " + riskLevel,
+                    "Risk Score: " + String.format("%.2f", riskScore) + " | Level: " + riskLevel,
                     message
             );
-
             log.info("📨 {} for student {} (risk: {})", action, student.getId(), riskLevel);
         }
 
@@ -153,12 +177,11 @@ public class AutomationEngineService {
     }
 
     // ================================================
-    // ATTENDANCE AUTOMATION — called by scheduler daily
+    // ATTENDANCE AUTOMATION
     // ================================================
     @Transactional
     public void saveActionLog(Long studentId, String actionType,
                               String triggerReason, String message) {
-
         AutomationAction action = AutomationAction.builder()
                 .studentId(studentId)
                 .actionType(actionType)
@@ -166,9 +189,9 @@ public class AutomationEngineService {
                 .messageSent(message)
                 .status("completed")
                 .build();
-
         automationActionRepository.save(action);
     }
+
     public Map<String, Object> runAttendanceAutomation() {
         log.info("🤖 Starting Attendance Automation Engine...");
 
@@ -188,7 +211,6 @@ public class AutomationEngineService {
                         .count();
                 double percentage = (present * 100.0 / total);
 
-                // Count consecutive absences
                 int consecutive = countConsecutiveAbsences(student.getId());
                 int mondayAbsences = countMondayAbsences(student.getId());
 
@@ -202,22 +224,40 @@ public class AutomationEngineService {
                         (int) present
                 );
 
-                // Save prediction
-                savePrediction(student.getId(), "ATTENDANCE_ANOMALY", prediction);
+                // ── Calculate attendance risk from REAL data ──────────
+                double calculatedRiskScore = calculateAttendanceRiskScore(
+                        percentage, consecutive);
+                String calculatedRiskLevel = getRiskLevel(calculatedRiskScore);
+
+                // Use Python if meaningful, else use calculated
+                double pythonScore = ((Number) prediction.getOrDefault(
+                        "riskScore", 0.0)).doubleValue();
+                double finalRiskScore = pythonScore > 0 ? pythonScore : calculatedRiskScore;
+                String finalRiskLevel = getRiskLevel(finalRiskScore);
+
+                // Save prediction with correct risk
+                savePredictionWithRisk(student.getId(), "ATTENDANCE_ANOMALY",
+                        prediction, finalRiskScore, finalRiskLevel);
 
                 String anomalyType = (String) prediction.getOrDefault("anomalyType", "NORMAL");
+
+                // Determine anomaly from calculated risk if Python returns NORMAL
+                if (anomalyType.equals("NORMAL") && percentage < 75) {
+                    if (percentage < 60) anomalyType = "CRITICAL_LOW_ATTENDANCE";
+                    else anomalyType = "LOW_ATTENDANCE";
+                }
+
                 boolean notifyParent = (Boolean) prediction.getOrDefault("notifyParent", false);
                 boolean flagAdmin = (Boolean) prediction.getOrDefault("flagAdmin", false);
 
-                // Take action
                 if (!anomalyType.equals("NORMAL")) {
                     String message = buildAttendanceMessage(student, percentage, anomalyType);
-
                     AutomationAction action = AutomationAction.builder()
                             .studentId(student.getId())
                             .actionType("ATTENDANCE_WARNING")
-                            .triggerReason(anomalyType + " | " + Math.round(percentage) + "%")
+                            .triggerReason(anomalyType + " | " + String.format("%.1f", percentage) + "%")
                             .messageSent(message)
+                            .status("completed")
                             .build();
                     automationActionRepository.save(action);
                     warningsSent++;
@@ -241,6 +281,23 @@ public class AutomationEngineService {
                 "parentNotifications", parentNotifications,
                 "adminFlags", adminFlags
         );
+    }
+
+    // ── Calculate attendance risk from real data ──────────────────────────────
+    private double calculateAttendanceRiskScore(double percentage, int consecutive) {
+        double risk = 0.0;
+
+        if (percentage < 60) risk += 0.6;
+        else if (percentage < 70) risk += 0.45;
+        else if (percentage < 75) risk += 0.3;
+        else if (percentage < 85) risk += 0.1;
+        else risk += 0.0;
+
+        if (consecutive >= 5) risk += 0.3;
+        else if (consecutive >= 3) risk += 0.2;
+        else if (consecutive >= 2) risk += 0.1;
+
+        return Math.min(risk, 1.0);
     }
 
     private String buildAttendanceMessage(
@@ -267,29 +324,26 @@ public class AutomationEngineService {
         records.sort((a, b) -> b.getDate().compareTo(a.getDate()));
         int count = 0;
         for (var record : records) {
-            if (record.getStatus() == Attendance.AttendanceStatus.absent) {
-                count++;
-            } else break;
+            if (record.getStatus() == Attendance.AttendanceStatus.absent) count++;
+            else break;
         }
         return count;
     }
 
     private int countMondayAbsences(Long studentId) {
         return (int) attendanceRepository.findByStudentId(studentId).stream()
-                .filter(a -> a.getDate().getDayOfWeek() ==
-                        java.time.DayOfWeek.MONDAY &&
-                        a.getStatus() == Attendance.AttendanceStatus.absent)
+                .filter(a -> a.getDate().getDayOfWeek() == java.time.DayOfWeek.MONDAY
+                        && a.getStatus() == Attendance.AttendanceStatus.absent)
                 .count();
     }
 
     // ================================================
-    // QUERY HANDLER — called in real-time
+    // QUERY HANDLER
     // ================================================
     @Transactional
     public Map<String, Object> handleStudentQuery(Long studentId, String question) {
         log.info("💬 Handling query from student {}: {}", studentId, question);
 
-        // Call Python classifier
         Map<String, Object> classification = aiClient.classifyQuery(studentId, question);
 
         String intent = (String) classification.getOrDefault("intent", "GENERAL_QUERY");
@@ -301,14 +355,12 @@ public class AutomationEngineService {
         String template = (String) classification.getOrDefault("template", "");
 
         if (autoAnswer && !escalate) {
-            // Build response with real data
             response = buildSmartResponse(studentId, intent, template);
         } else {
             response = "Your query has been forwarded to our admin team. " +
                     "They will respond within 24 hours.";
         }
 
-        // Save query to DB
         StudentQuery query = StudentQuery.builder()
                 .studentId(studentId)
                 .question(question)
@@ -340,10 +392,12 @@ public class AutomationEngineService {
                     long present = records.stream()
                             .filter(a -> a.getStatus() == Attendance.AttendanceStatus.present)
                             .count();
-                    double pct = total > 0 ? Math.round(present * 100.0 / total * 10) / 10.0 : 0;
+                    double pct = total > 0 ?
+                            Math.round(present * 100.0 / total * 10) / 10.0 : 0;
                     String status = pct >= 75 ? "Safe ✅" : "At Risk ⚠️";
                     yield String.format(
-                            "Your current attendance is %.1f%%. You attended %d out of %d classes. Status: %s",
+                            "Your current attendance is %.1f%%. " +
+                                    "You attended %d out of %d classes. Status: %s",
                             pct, present, total, status);
                 }
                 case "FEE_QUERY" -> {
@@ -364,7 +418,7 @@ public class AutomationEngineService {
                                 "Please check the Exam section for details.";
                 case "CERTIFICATE_REQUEST" ->
                         "Certificate requests are processed within 2-3 working days. " +
-                                "Please visit the admin office with your ID card and fill the request form.";
+                                "Please visit the admin office with your ID card.";
                 default ->
                         "Thank you for your query. Please visit the admin office for assistance.";
             };
@@ -374,23 +428,56 @@ public class AutomationEngineService {
     }
 
     // ================================================
-    // HELPER: Save AI prediction to DB
+    // HELPER: Save prediction with CORRECT risk
     // ================================================
-    private void savePrediction(Long studentId, String serviceType, Map<String, Object> result) {
+
+    // ── OLD savePrediction replaced — now uses calculated risk ────────────────
+    private void savePrediction(Long studentId, String serviceType,
+                                Map<String, Object> result) {
+        // Get score from Python
+        double score = ((Number) result.getOrDefault("predictedScore", 0.0)).doubleValue();
+        double riskScore;
+        String riskLevel;
+
+        if (score > 0) {
+            // Python returned a score — convert to risk
+            riskScore = (100.0 - score) / 100.0;
+            riskLevel = getRiskLevel(riskScore);
+        } else {
+            // Python returned 0 — use riskScore directly if available
+            riskScore = ((Number) result.getOrDefault("riskScore", 0.0)).doubleValue();
+            riskLevel = riskScore > 0 ? getRiskLevel(riskScore)
+                    : (String) result.getOrDefault("riskLevel", "LOW");
+        }
+
+        savePredictionWithRisk(studentId, serviceType, result, riskScore, riskLevel);
+    }
+
+    // ── New method — saves with explicitly calculated risk ────────────────────
+    private void savePredictionWithRisk(Long studentId, String serviceType,
+                                        Map<String, Object> result,
+                                        double riskScore, String riskLevel) {
         try {
             AiPrediction prediction = AiPrediction.builder()
                     .studentId(studentId)
                     .serviceType(serviceType)
-                    .riskScore(BigDecimal.valueOf(
-                            ((Number) result.getOrDefault("riskScore", 0.0)).doubleValue()))
-                    .riskLevel((String) result.getOrDefault("riskLevel",
-                            result.getOrDefault("anomalyType", "UNKNOWN").toString()))
+                    .riskScore(BigDecimal.valueOf(riskScore))
+                    .riskLevel(riskLevel)
                     .predictionResult(result.toString())
                     .build();
             aiPredictionRepository.save(prediction);
+            log.info("💾 Saved prediction: student={}, type={}, score={}, level={}",
+                    studentId, serviceType, riskScore, riskLevel);
         } catch (Exception e) {
             log.error("Failed to save prediction: {}", e.getMessage());
         }
+    }
+
+    // ── Convert risk score (0.0–1.0) to level ────────────────────────────────
+    private String getRiskLevel(double riskScore) {
+        if (riskScore >= 0.7) return "HIGH";
+        if (riskScore >= 0.4) return "MEDIUM";
+        return "LOW";
     }
 
     // ================================================
@@ -415,14 +502,22 @@ public class AutomationEngineService {
                 studentId, attendancePct, assignmentScore,
                 midtermScore, quizAverage, studyHours);
 
-        savePrediction(studentId, "EXAM_PREDICTOR", prediction);
+        // Calculate exam risk from scores
+        double avgScore = (assignmentScore + midtermScore + quizAverage) / 3.0;
+        double examRiskScore = Math.max(0, (70.0 - avgScore) / 70.0);
+        String examRiskLevel = getRiskLevel(examRiskScore);
 
-        if ((Boolean) prediction.getOrDefault("sendAlert", false)) {
+        savePredictionWithRisk(studentId, "EXAM_PREDICTOR",
+                prediction, examRiskScore, examRiskLevel);
+
+        if (avgScore < 50 || attendancePct < 65) {
             AutomationAction action = AutomationAction.builder()
                     .studentId(studentId)
                     .actionType("EXAM_RISK_ALERT")
-                    .triggerReason("Predicted score: " + prediction.get("predictedScore"))
+                    .triggerReason("Avg score: " + String.format("%.1f", avgScore)
+                            + " | Attendance: " + String.format("%.1f", attendancePct) + "%")
                     .messageSent("Your predicted exam score is low. Please study more.")
+                    .status("completed")
                     .build();
             automationActionRepository.save(action);
         }

@@ -1,4 +1,4 @@
-package com.studenterp.security;
+package com.studenterp.student_erp.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -58,3 +58,8 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 }
+
+
+
+
+
