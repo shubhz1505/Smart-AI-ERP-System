@@ -823,12 +823,6 @@ Training Data Records:  3427
 - Python ML microservices
 - Database design
 
-**[Friend's Name]** — Frontend Developer
-- React frontend (in progress)
-- UI/UX design
-
----
-
 ## 📄 License
 
 This project is licensed under the MIT License.
